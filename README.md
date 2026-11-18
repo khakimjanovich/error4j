@@ -1,4 +1,4 @@
-# error
+# error4j
 
 One error format for every service: RFC 9457 problem details with a stable `code`, a message in
 the caller's language (`Accept-Language`: en, ru, uz), the request (`instance`) and its trace id

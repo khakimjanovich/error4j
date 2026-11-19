@@ -5,8 +5,8 @@ the caller's language (`Accept-Language`: en, ru, uz), the request (`instance`) 
 (`requestId`). Use it in every web app and adapter.
 
 ```groovy
-implementation libs.platform.error
-testImplementation testFixtures(libs.platform.error) // ErrorDefinitions
+implementation libs.error4j
+testImplementation testFixtures(libs.error4j) // ErrorDefinitions
 ```
 
 ## Throwing an error
@@ -15,16 +15,15 @@ A service lists its errors in an enum that implements `StatusThrowable` and defi
 `src/main/resources/properties/<name>-exception.yaml`:
 
 ```yaml
-platform:
-  error:
-    codes:
-      PARTNER_EMAIL_TAKEN:
-        http-code: 409
-        title: partner-email-taken
-        is-loggable: false
-        message-en: "{0} is already registered."
-        message-ru: "{0} уже зарегистрирован."
-        message-uz: "{0} allaqachon roʻyxatdan oʻtgan."
+error4j:
+  codes:
+    PARTNER_EMAIL_TAKEN:
+      http-code: 409
+      title: partner-email-taken
+      is-loggable: false
+      message-en: "{0} is already registered."
+      message-ru: "{0} уже зарегистрирован."
+      message-uz: "{0} allaqachon roʻyxatdan oʻtgan."
 ```
 
 `throw new GeneralException(PartnerExceptionStatus.PARTNER_EMAIL_TAKEN, email)` answers 409 with
@@ -38,7 +37,7 @@ parameters, masked. A 5xx is an error, an `is-loggable` one a warning, anything 
 
 | Property | What |
 |---|---|
-| `platform.error.codes` | every error's definition by its code: `http-code`, `title`, `is-loggable`, `message-en`, `message-ru`, `message-uz` |
+| `error4j.codes` | every error's definition by its code: `http-code`, `title`, `is-loggable`, `message-en`, `message-ru`, `message-uz` |
 
 The library loads its own `properties/error-exception.yaml` (below the app's configuration); an app
 imports its modules' files with `spring.config.import`.

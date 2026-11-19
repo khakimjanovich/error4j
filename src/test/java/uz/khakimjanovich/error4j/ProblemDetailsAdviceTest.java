@@ -348,8 +348,7 @@ class ProblemDetailsAdviceTest {
     properties.put("error4j.codes.EMAIL_TAKEN.http-code", "409");
     properties.put("error4j.codes.EMAIL_TAKEN.title", "email-taken");
     properties.put("error4j.codes.EMAIL_TAKEN.message-en", "{0} is already registered.");
-    properties.put(
-        "error4j.codes.EMAIL_TAKEN.message-uz", "{0} allaqachon roʻyxatdan oʻtgan.");
+    properties.put("error4j.codes.EMAIL_TAKEN.message-uz", "{0} allaqachon roʻyxatdan oʻtgan.");
     properties.put("error4j.codes.CARD_DECLINED.http-code", "400");
     properties.put("error4j.codes.CARD_DECLINED.title", "card-declined");
     properties.put("error4j.codes.CARD_DECLINED.is-loggable", "true");

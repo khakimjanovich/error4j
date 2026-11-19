@@ -1,7 +1,7 @@
 // One error format for every module: RFC 9457 problem details plus a stable error code.
 plugins {
-    alias(libs.plugins.platform.library)
-    alias(libs.plugins.platform.integration.test)
+    alias(libs.plugins.conventions.library)
+    alias(libs.plugins.conventions.integration.test)
     id 'java-test-fixtures' // ErrorDefinitions: the completeness check every service runs
 }
 

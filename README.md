@@ -1,12 +1,12 @@
-# error4j
+# error
 
 One error format for every service: RFC 9457 problem details with a stable `code`, a message in
 the caller's language (`Accept-Language`: en, ru, uz), the request (`instance`) and its trace id
 (`requestId`). Use it in every web app and adapter.
 
 ```groovy
-implementation libs.error4j
-testImplementation testFixtures(libs.error4j) // ErrorDefinitions
+implementation libs.error
+testImplementation testFixtures(libs.error) // ErrorDefinitions
 ```
 
 ## Throwing an error
@@ -15,15 +15,16 @@ A service lists its errors in an enum that implements `StatusThrowable` and defi
 `src/main/resources/properties/<name>-exception.yaml`:
 
 ```yaml
-error4j:
-  codes:
-    PARTNER_EMAIL_TAKEN:
-      http-code: 409
-      title: partner-email-taken
-      is-loggable: false
-      message-en: "{0} is already registered."
-      message-ru: "{0} уже зарегистрирован."
-      message-uz: "{0} allaqachon roʻyxatdan oʻtgan."
+org4j:
+  error:
+    codes:
+      PARTNER_EMAIL_TAKEN:
+        http-code: 409
+        title: partner-email-taken
+        is-loggable: false
+        message-en: "{0} is already registered."
+        message-ru: "{0} уже зарегистрирован."
+        message-uz: "{0} allaqachon roʻyxatdan oʻtgan."
 ```
 
 `throw new GeneralException(PartnerExceptionStatus.PARTNER_EMAIL_TAKEN, email)` answers 409 with
@@ -37,7 +38,7 @@ parameters, masked. A 5xx is an error, an `is-loggable` one a warning, anything 
 
 | Property | What |
 |---|---|
-| `error4j.codes` | every error's definition by its code: `http-code`, `title`, `is-loggable`, `message-en`, `message-ru`, `message-uz` |
+| `org4j.error.codes` | every error's definition by its code: `http-code`, `title`, `is-loggable`, `message-en`, `message-ru`, `message-uz` |
 
 The library loads its own `properties/error-exception.yaml` (below the app's configuration); an app
 imports its modules' files with `spring.config.import`.
@@ -69,9 +70,9 @@ empty for an HTML page or no body), `Problems.code(problem)` its code and
 
 ## Tests
 
-- `./gradlew -p platform :error:test`: every kind of failure as a problem detail, the log line,
+- `./gradlew test`: every kind of failure as a problem detail, the log line,
   `Problems`, and `ErrorDefinitions` against fixture definitions.
-- `./gradlew -p platform :error:integrationTest`: on a real server with Spring Security and Boot's
+- `./gradlew integrationTest`: on a real server with Spring Security and Boot's
   own problem-details handler switched on, and `Problems` against WireMock.
 - Every service runs `ErrorDefinitions.assertComplete("com.example")` in a unit test: each code
   has a status, a title and a message in all three languages with the same placeholders, and no
